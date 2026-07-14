@@ -9,7 +9,7 @@
 - `telegram_report.json` 설정 파일에 봇 토큰 및 챗 아이디 기입
 
 ## ⚙️ 설정값 구성 (`telegram_report.json`)
-- `BOT_TOKEN` — 텔레그램 봇 토큰 정보 (기본값: `8941848388:AAF5FcCEFPh0bwijALUxfYqa_cO5WfQoHzg`)
+- `BOT_TOKEN` — 텔레그램 봇 토큰 정보 (기본값: `YOUR_TELEGRAM_BOT_TOKEN`)
 - `CHAT_ID` — 메시지를 수신할 사장님 텔레그램 계정 또는 채널 ID (기본값: `7113075354`)
 
 ## 🖥️ 실행 방식
