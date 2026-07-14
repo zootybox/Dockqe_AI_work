@@ -1,0 +1,53 @@
+{
+  "gemini-flash": {
+    "type": "gemini",
+    "url": "https://generativelanguage.googleapis.com/v1beta/openai",
+    "model": "gemma-4-27b-it",
+    "apiKey": "YOUR_API_KEY_HERE"
+  },
+  "groq": {
+    "type": "groq",
+    "url": "https://api.groq.com/openai/v1",
+    "model": "llama-3.3-70b-versatile",
+    "apiKey": "YOUR_API_KEY_HERE"
+  },
+  "openrouter": {
+    "type": "openrouter",
+    "url": "https://openrouter.ai/api/v1",
+    "model": "google/gemini-2.5-flash",
+    "apiKey": "YOUR_API_KEY_HERE"
+  },
+  "ext-api1": {
+    "type": "openai",
+    "url": "https://generativelanguage.googleapis.com/v1beta/openai",
+    "model": "gemma-4-31b-it",
+    "apiKey": "YOUR_API_KEY_HERE",
+    "limits": {
+      "rpm": 30,
+      "rpd": 1000
+    },
+    "priority": 11
+  },
+  "ext-api2": {
+    "type": "openai",
+    "url": "https://api.groq.com/openai/v1",
+    "model": "llama-3.3-70b-versatile",
+    "apiKey": "YOUR_API_KEY_HERE",
+    "limits": {
+      "rpm": 30,
+      "rpd": 1000
+    },
+    "priority": 12
+  },
+  "ext-api3": {
+    "type": "openai",
+    "url": "https://openrouter.ai/api/v1",
+    "model": "google/gemini-2.5-flash",
+    "apiKey": "YOUR_API_KEY_HERE",
+    "limits": {
+      "rpm": 30,
+      "rpd": 1000
+    },
+    "priority": 13
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "tools": [
+    {
+      "file": "manage_wordpress.py",
+      "path": "_agents/developer/tools/manage_wordpress.py",
+      "purpose": "WordPress REST API 통신",
+      "actions": [
+        "create_post",
+        "create_page",
+        "list_posts",
+        "update_post",
+        "get_post"
+      ],
+      "note": "반드시 HTTPS 사용. HTTP 사용 시 POST가 GET으로 오염 발생",
+      "verified_by": "코다리",
+      "last_verified": "2026-07-03"
+    },
+    {
+      "file": "publish_ai_workflow.py",
+      "path": "_agents/developer/tools/publish_ai_workflow.py",
+      "purpose": "SEO 최적화 글 WordPress 발행 워크플로우",
+      "actions": [
+        "publish_to_wordpress"
+      ],
+      "note": "본문 파일 존재 확인(os.path.exists) 후 실행. 광고 숏코드 자동 삽입 포함",
+      "verified_by": "코다리",
+      "last_verified": "2026-07-03"
+    },
+    {
+      "file": "seo_blog_writer.py",
+      "path": "_agents/writer/tools/seo_blog_writer.py",
+      "purpose": "SEO 최적화 블로그 글 작성",
+      "actions": [
+        "generate_blog_post"
+      ],
+      "note": "키워드, 카테고리, 사이트명 필수 파라미터",
+      "verified_by": "은빈",
+      "last_verified": "2026-07-03"
+    },
+    {
+      "file": "system_cleanup.py",
+      "path": "_agents/secretary/tools/system_cleanup.py",
+      "purpose": "시스템 파일 정리 및 세션 관리",
+      "actions": [
+        "cleanup_sessions",
+        "archive_logs"
+      ],
+      "verified_by": "비서",
+      "last_verified": "2026-07-06"
+    },
+    {
+      "file": "wp_quality_audit.py",
+      "path": "_agents/researcher/tools/wp_quality_audit.py",
+      "purpose": "WordPress 전체 포스트 품질 감사",
+      "actions": ["audit"],
+      "verified_by": "system",
+      "last_verified": "2026-07-13"
+    },
+    {
+      "file": "analyze_adsense_failure.py",
+      "path": "_agents/researcher/tools/analyze_adsense_failure.py",
+      "purpose": "애드센스 승인 실패 원인 분석",
+      "actions": ["analyze_site"],
+      "verified_by": "system",
+      "last_verified": "2026-07-13"
+    },
+    {
+      "file": "analyze_content_quality.py",
+      "path": "_agents/researcher/tools/analyze_content_quality.py",
+      "purpose": "콘텐츠 품질 정밀 분석 및 위험 요소 색출 (WP REST API 기반)",
+      "actions": ["analyze_quality"],
+      "verified_by": "system",
+      "last_verified": "2026-07-13"
+    },
+    {
+      "file": "telegram_report.py",
+      "path": "_agents/secretary/tools/telegram_report.py",
+      "purpose": "텔레그램 메시지 발송",
+      "actions": ["send_message"],
+      "verified_by": "비서",
+      "last_verified": "2026-07-13"
+    }
+  ],
+  "agentToolMapping": {
+    "developer": [
+      "manage_wordpress.py",
+      "publish_ai_workflow.py",
+      "telegram_report.py"
+    ],
+    "writer": [
+      "seo_blog_writer.py",
+      "publish_ai_workflow.py",
+      "telegram_report.py"
+    ],
+    "secretary": [
+      "system_cleanup.py",
+      "telegram_report.py"
+    ],
+    "researcher": [
+      "wp_quality_audit.py",
+      "analyze_adsense_failure.py",
+      "analyze_content_quality.py",
+      "telegram_report.py"
+    ],
+    "business": [
+      "telegram_report.py"
+    ],
+    "ceo": [
+      "telegram_report.py"
+    ]
+  },
+  "lastUpdated": "2026-07-13"
+}

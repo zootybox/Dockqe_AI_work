@@ -1,0 +1,62 @@
+{
+  "ceo": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "developer": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "youtube": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "writer": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "researcher": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "business": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "secretary": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "designer": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "instagram": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  },
+  "editor": {
+    "engine": "external-engines",
+    "failover": [
+      "ollama"
+    ]
+  }
+}
