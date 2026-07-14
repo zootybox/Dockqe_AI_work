@@ -22,6 +22,21 @@ AUTONOMY_LEVEL: 2
 
 ## 사용 가능한 도구
 
+### hire_agent ✅ 동작
+- 실행: python3 tools/hire_agent.py
+- 설명: (자동 스캔됨)
+
+
+### manage_knowledge ✅ 동작
+- 실행: python3 tools/manage_knowledge.py
+- 설명: (자동 스캔됨)
+
+
+### manage_skills ✅ 동작
+- 실행: python3 tools/manage_skills.py
+- 설명: (자동 스캔됨)
+
+
 _(이 에이전트는 아직 등록된 도구가 없습니다. 추후 추가 예정.)_
 
 ---

@@ -22,6 +22,11 @@ AUTONOMY_LEVEL: 2
 
 ## 사용 가능한 도구
 
+### telegram_report ✅ 동작
+- 실행: python3 tools/telegram_report.py
+- 설명: (자동 스캔됨)
+
+
 ### `telegram_setup`
 텔레그램 양방향 봇 (Bot Token + Chat ID)
 
@@ -33,33 +38,6 @@ Google Calendar OAuth 읽기·쓰기
 
 - `enabled`: true
 - `requires_credentials`: `config.md` 참조
-
-
----
-
-## 로드맵 (예정)
-
-_아래 도구들은 향후 버전에서 추가 예정. 지금은 카탈로그에만 있음._
-
-### `calendar_local` _(예정)_
-_agents/secretary/calendar.md (Lv.1 오프라인)
-
-- 아직 구현되지 않은 도구입니다. 로드맵에 있으며 향후 버전에서 추가 예정.
-
-### `calendar_caldav` _(예정)_
-CalDAV (iCloud/Google 호환)
-
-- 아직 구현되지 않은 도구입니다. 로드맵에 있으며 향후 버전에서 추가 예정.
-
-### `kakao_alert` _(예정)_
-카카오톡 "나에게 보내기" 단방향 알림
-
-- 아직 구현되지 않은 도구입니다. 로드맵에 있으며 향후 버전에서 추가 예정.
-
-### `email_triage` _(예정)_
-IMAP/Gmail 분류 + 답장 초안
-
-- 아직 구현되지 않은 도구입니다. 로드맵에 있으며 향후 버전에서 추가 예정.
 
 
 ---

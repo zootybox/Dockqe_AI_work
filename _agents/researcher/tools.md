@@ -22,6 +22,21 @@ AUTONOMY_LEVEL: 2
 
 ## 사용 가능한 도구
 
+### analyze_content_quality ✅ 동작
+- 실행: python3 tools/analyze_content_quality.py
+- 설명: (자동 스캔됨)
+
+
+### audit_site ✅ 동작
+- 실행: python3 tools/audit_site.py
+- 설명: (자동 스캔됨)
+
+
+### site_audit_tool ✅ 동작
+- 실행: python3 tools/site_audit_tool.py
+- 설명: (자동 스캔됨)
+
+
 ### `wp_quality_audit` ✅ 동작
 WordPress 포스트 전수 품질 감사 — 분량·H2/H3 구조·AI 생성 패턴 자동 탐지
 

@@ -22,6 +22,31 @@ AUTONOMY_LEVEL: 2
 
 ## 사용 가능한 도구
 
+### audit_wordpress_adsense ✅ 동작
+- 실행: python3 tools/audit_wordpress_adsense.py
+- 설명: (자동 스캔됨)
+
+
+### manage_wordpress ✅ 동작
+- 실행: python3 tools/manage_wordpress.py
+- 설명: (자동 스캔됨)
+
+
+### modutools_builder ✅ 동작
+- 실행: python3 tools/modutools_builder.py
+- 설명: (자동 스캔됨)
+
+
+### publish_seo_post ✅ 동작
+- 실행: python3 tools/publish_seo_post.py
+- 설명: (자동 스캔됨)
+
+
+### wordpress_poster ✅ 동작
+- 실행: python3 tools/wordpress_poster.py
+- 설명: (자동 스캔됨)
+
+
 ### `web_init`
 5개 템플릿 자동 시작 — vite·next·astro·expo·vanilla
 
@@ -51,23 +76,6 @@ dev server 백그라운드 실행 + URL 자동 추출
 
 - `enabled`: true
 - `requires_credentials`: `config.md` 참조
-
-
----
-
-## 로드맵 (예정)
-
-_아래 도구들은 향후 버전에서 추가 예정. 지금은 카탈로그에만 있음._
-
-### `git_committer` _(예정)_
-작업 단위 자동 커밋 (의미 단위 + git add -A 금지)
-
-- 아직 구현되지 않은 도구입니다. 로드맵에 있으며 향후 버전에서 추가 예정.
-
-### `deploy_cli` _(예정)_
-Vercel/Netlify/Cloudflare 배포 (deploy --prod는 항상 승인)
-
-- 아직 구현되지 않은 도구입니다. 로드맵에 있으며 향후 버전에서 추가 예정.
 
 
 ---
