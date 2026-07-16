@@ -57,19 +57,37 @@ def main():
 
     _log("텔레그램 알림 전송 시작...", "step")
     url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {
-        "chat_id": chat_id,
-        "text": message,
-        "parse_mode": "Markdown"
-    }
+    
+    max_len = 3800
+    chunks = []
+    remaining = message
+    while len(remaining) > max_len:
+        split_at = remaining.rfind('\n\n', 0, max_len)
+        if split_at < int(max_len * 0.6):
+            split_at = remaining.rfind('\n', 0, max_len)
+        if split_at < int(max_len * 0.6):
+            split_at = remaining.rfind('. ', 0, max_len)
+        if split_at < int(max_len * 0.4):
+            split_at = max_len
+        chunks.append(remaining[:split_at].rstrip())
+        remaining = remaining[split_at:].lstrip()
+    if remaining:
+        chunks.append(remaining)
 
     try:
-        res = requests.post(url, json=payload, timeout=15)
-        if res.ok:
-            _log("텔레그램 메시지 발송 완료!", "ok")
-        else:
-            _log(f"메시지 발송 실패: 코드 {res.status_code} — {res.text}", "err")
-            sys.exit(1)
+        for i, chunk in enumerate(chunks):
+            part = f"{chunk}\n\n_({i+1}/{len(chunks)})_" if len(chunks) > 1 else chunk
+            payload = {
+                "chat_id": chat_id,
+                "text": part,
+                "parse_mode": "Markdown"
+            }
+            res = requests.post(url, json=payload, timeout=15)
+            if not res.ok:
+                _log(f"메시지 발송 실패 ({i+1}/{len(chunks)}): 코드 {res.status_code} — {res.text}", "err")
+                sys.exit(1)
+                
+        _log(f"텔레그램 메시지 발송 완료! (총 {len(chunks)}개 메시지)", "ok")
     except Exception as e:
         _log(f"네트워크 통신 오류: {e}", "err")
         sys.exit(1)

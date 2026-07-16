@@ -73,11 +73,11 @@
 - Rate limit: 무료 계정 분당 60 요청 — 일반 사용엔 충분
 - 분쟁·세금·환율 변환은 안 함 (분석만)
 
-## 보안
+## 보안 및 승인 정책 (HITL Boundary)
 
-- `CLIENT_SECRET` 은 도구 설정 (password 필드) 에 저장. `.gitignore` 적용된 `_agents/business/tools/*.json` 에만 있음.
-- API 호출은 Connect AI 익스텐션이 로컬에서 직접 → 외부 서버 경유 없음.
-- token 메모리에만 존재, 디스크 저장 X.
+- **보안**: `CLIENT_SECRET` 은 도구 설정 (password 필드) 에 저장. `.gitignore` 적용된 `_agents/business/tools/*.json` 에만 있음. API 호출은 로컬에서 직접 이루어지며 외부 서버 경유가 없습니다.
+- **조회(Read) 자율화**: 본 매출 데이터 조회(GET/Search)는 도커 내부 환경과 마찬가지로 에이전트가 승인 없이 자율적으로 조회하고 리포트를 생성할 수 있습니다.
+- **타격(Write/Delete) 승인 강제**: 단, 향후 환불(Refund) 처리, 워드프레스/소셜 플랫폼 글 발행 및 수정, 삭제 등 **실제 라이브 서비스 상태를 변경하는 파괴적 통신(POST/PUT/DELETE)**을 수행할 때는 반드시 사장님의 제어 센터 "승인 큐"에 올려 인간의 결재(Approve)를 받아야만 실행되도록 설계되어야 합니다.
 
 ## 다음 단계 (계획)
 

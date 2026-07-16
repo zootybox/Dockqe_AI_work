@@ -63,17 +63,37 @@ def _resolve_telegram(account):
     return token, chat
 
 def _push_telegram(account, text):
+    """v2.89.50 — Chunking algorithms to prevent truncation."""
     token, chat = _resolve_telegram(account)
     if not token or not chat:
         return
     try:
         import requests
-        requests.post(
-            f"https://api.telegram.org/bot{token}/sendMessage",
-            json={"chat_id": chat, "text": text, "parse_mode": "Markdown"},
-            timeout=10,
-        )
-        print("📨 텔레그램으로 보고 전송")
+        
+        max_len = 3800
+        chunks = []
+        remaining = text
+        while len(remaining) > max_len:
+            split_at = remaining.rfind('\n\n', 0, max_len)
+            if split_at < int(max_len * 0.6):
+                split_at = remaining.rfind('\n', 0, max_len)
+            if split_at < int(max_len * 0.6):
+                split_at = remaining.rfind('. ', 0, max_len)
+            if split_at < int(max_len * 0.4):
+                split_at = max_len
+            chunks.append(remaining[:split_at].rstrip())
+            remaining = remaining[split_at:].lstrip()
+        if remaining:
+            chunks.append(remaining)
+
+        for i, chunk in enumerate(chunks):
+            part = f"{chunk}\n\n_({i+1}/{len(chunks)})_" if len(chunks) > 1 else chunk
+            requests.post(
+                f"https://api.telegram.org/bot{token}/sendMessage",
+                json={"chat_id": chat, "text": part, "parse_mode": "Markdown"},
+                timeout=10,
+            )
+        print(f"📨 텔레그램으로 보고 전송 (총 {len(chunks)}개 메시지)")
     except Exception as e:
         print(f"⚠️  텔레그램 전송 실패: {e}")
 

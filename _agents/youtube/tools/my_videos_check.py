@@ -76,29 +76,45 @@ def _resolve_telegram(account):
     return token, chat
 
 def _push_telegram(account, text):
-    """v2.89.49 — 마크다운 모드는 *,[,(,),# 같은 특수문자 많은 보고서에서 자주 400 거부.
-    이전엔 그래도 'sent' print해서 사용자한테 가짜 성공 보고. 이제 plain text 모드로
-    안전하게 보내고 HTTP status 체크해서 진짜 성공/실패 정확히 알려줌."""
+    """v2.89.50 — Chunking algorithms to prevent truncation."""
     token, chat = _resolve_telegram(account)
     if not token or not chat:
         print("⚠️  텔레그램 토큰/chat_id 미설정 — 전송 안 함", file=sys.stderr)
         return
     try:
         import requests
-        # plain text (parse_mode 없음) — 어떤 특수문자든 통과
-        r = requests.post(
-            f"https://api.telegram.org/bot{token}/sendMessage",
-            json={"chat_id": chat, "text": text[:4000]},
-            timeout=10,
-        )
-        if r.status_code == 200:
-            print("📨 텔레그램 전송 성공", file=sys.stderr)
-        else:
-            try:
-                err = r.json().get("description", r.text[:200])
-            except Exception:
-                err = r.text[:200]
-            print(f"⚠️  텔레그램 전송 실패 (HTTP {r.status_code}): {err}", file=sys.stderr)
+        
+        max_len = 3800
+        chunks = []
+        remaining = text
+        while len(remaining) > max_len:
+            split_at = remaining.rfind('\n\n', 0, max_len)
+            if split_at < int(max_len * 0.6):
+                split_at = remaining.rfind('\n', 0, max_len)
+            if split_at < int(max_len * 0.6):
+                split_at = remaining.rfind('. ', 0, max_len)
+            if split_at < int(max_len * 0.4):
+                split_at = max_len
+            chunks.append(remaining[:split_at].rstrip())
+            remaining = remaining[split_at:].lstrip()
+        if remaining:
+            chunks.append(remaining)
+
+        for i, chunk in enumerate(chunks):
+            part = f"{chunk}\n\n_({i+1}/{len(chunks)})_" if len(chunks) > 1 else chunk
+            r = requests.post(
+                f"https://api.telegram.org/bot{token}/sendMessage",
+                json={"chat_id": chat, "text": part},
+                timeout=10,
+            )
+            if r.status_code == 200:
+                print(f"📨 텔레그램 전송 성공 ({i+1}/{len(chunks)})", file=sys.stderr)
+            else:
+                try:
+                    err = r.json().get("description", r.text[:200])
+                except Exception:
+                    err = r.text[:200]
+                print(f"⚠️  텔레그램 전송 실패 (HTTP {r.status_code}): {err}", file=sys.stderr)
     except Exception as e:
         print(f"⚠️  텔레그램 전송 에러: {e}", file=sys.stderr)
 

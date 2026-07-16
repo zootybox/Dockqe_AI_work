@@ -29,15 +29,37 @@ def _resolve_channel_id(youtube, handle):
     return None, None
 
 def _push_telegram(account, text):
+    """v2.89.50 — Chunking algorithms to prevent truncation."""
     token = (account.get("TELEGRAM_BOT_TOKEN") or "").strip()
     chat  = (account.get("TELEGRAM_CHAT_ID") or "").strip()
     if not token or not chat:
         return
     try:
         import requests
-        requests.post(f"https://api.telegram.org/bot{token}/sendMessage",
-                      json={"chat_id": chat, "text": text[:4000], "parse_mode": "Markdown"},
-                      timeout=10)
+        
+        max_len = 3800
+        chunks = []
+        remaining = text
+        while len(remaining) > max_len:
+            split_at = remaining.rfind('\n\n', 0, max_len)
+            if split_at < int(max_len * 0.6):
+                split_at = remaining.rfind('\n', 0, max_len)
+            if split_at < int(max_len * 0.6):
+                split_at = remaining.rfind('. ', 0, max_len)
+            if split_at < int(max_len * 0.4):
+                split_at = max_len
+            chunks.append(remaining[:split_at].rstrip())
+            remaining = remaining[split_at:].lstrip()
+        if remaining:
+            chunks.append(remaining)
+
+        for i, chunk in enumerate(chunks):
+            part = f"{chunk}\n\n_({i+1}/{len(chunks)})_" if len(chunks) > 1 else chunk
+            requests.post(
+                f"https://api.telegram.org/bot{token}/sendMessage",
+                json={"chat_id": chat, "text": part, "parse_mode": "Markdown"},
+                timeout=10,
+            )
     except Exception:
         pass
 
